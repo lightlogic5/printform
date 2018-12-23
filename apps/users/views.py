@@ -79,9 +79,10 @@ class UserView(View):
         user_form = UploadImageForm(request.POST)
         if user_form.is_valid():
             user_profile.name = user_form.cleaned_data['name']
-            # user_profile.birthday = user_form.cleaned_data['birthday']
+            user_profile.birthday = user_form.cleaned_data['birthday']
             user_profile.moblie = user_form.cleaned_data['moblie']
             user_profile.email = user_form.cleaned_data['email']
+            user_profile.gender = user_form.cleaned_data['gender']
             user_profile.save()
             return HttpResponseRedirect(reverse('users:employee'))
         else:

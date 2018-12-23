@@ -1,15 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-import django.utils.timezone as timezone
-
+# import django.utils.timezone as timezone
+from datetime import date
 
 
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_employee', null=True, blank=True)
     name = models.CharField(max_length=100, verbose_name='姓名', null=True, blank=True)
-    birthday = models.DateField(verbose_name='生日', null=True, blank=True, default = timezone.now)
+    birthday = models.DateField(verbose_name='生日', null=True, blank=True, default = date.today)
     GENDER_CHOICES = (
         ('male', '男'),
         ('female', '女')
@@ -20,8 +20,8 @@ class Employee(models.Model):
     )
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='male', verbose_name='性别')
     units = models.CharField(max_length=5, verbose_name='单位', choices=UNITS_CHOICES, null=True, blank=True)
-    moblie = models.CharField(max_length=11, verbose_name='手机', null=True, blank=True)
-    email = models.CharField(max_length=100, verbose_name='邮箱', null=True, blank=True)
+    moblie = models.CharField(max_length=11, verbose_name='手机', default='')
+    email = models.CharField(max_length=100, verbose_name='邮箱', default='')
     image = models.ImageField(max_length=100, upload_to='image/%y/%m', default='image/default.png', verbose_name='用户头像')
 
 
