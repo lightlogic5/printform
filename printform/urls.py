@@ -22,5 +22,6 @@ import xadmin
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name= 'index'),
     path('xadmin/', xadmin.site.urls),
-    path('forms/', include(('users.urls','users'), namespace="users")),
+    path('userforms/', include(('users.urls','users'), namespace="users")),
+    path('prforms/', include(('upforms.urls','upforms'), namespace="pr")),
 ]

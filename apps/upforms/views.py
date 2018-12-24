@@ -9,17 +9,18 @@ from django.utils import timezone
 from .forms import MyPrintForm
 
 
-class FormView(View):
+class UpFormView(View):
     def get(self, request):
-        return render(request, "uploadform.html", {})
+        user = request.user
+        return render(request, "uploadform.html", {'user': user})
 
     def post(self, request):
         user = request.user
         print_form = MyPrintForm(request.POST)
         if print_form.is_valid():
-            # print(print_form.cleaned_data)
             print_form1 = print_form.save(commit=False)
             print_form1.pub_date = timezone.now()
+            print_form1.repair_man = user
             print_form1.save()
             return HttpResponse('{"status":"success"}', content_type='application/json')
         else:
