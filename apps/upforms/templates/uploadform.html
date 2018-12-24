@@ -8,7 +8,7 @@
 
 <form action="{% url 'pr:upform' %}" method="POST" role="form" class="am-form am-form-horizontal">
   <legend><p class="am-kai">尊敬的{{ user.user_employee.name }}，您好：</p>
-      <p class="am-kai">&emsp;&emsp;&emsp;&emsp;请核对您的信息：您的联系方式是{{ user.user_employee.moblie }},我们将尽快处理您的打印机故障。</p>
+      <p class="am-kai">&emsp;&emsp;&emsp;&emsp;请核对您的信息：您的联系电话是{{ user.user_employee.moblie }},我们将尽快处理您的打印机故障。</p>
 
   </legend>
 
@@ -21,6 +21,11 @@
   </div>
     <input type="hidden" name="pub_date" id="">
     <input type="hidden" name="repair_man" id="">
+<ul>
+{% for pr in user.user_printer.all %}
+<li>{{ pr.type }}</li>
+{% endfor %}
+</ul>
   <div class="am-form-group">
     <div class="am-u-md-offset-2 am-u-md-10">
       <button type="submit" class="am-btn am-btn-primary">提交</button>
