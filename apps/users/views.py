@@ -46,6 +46,7 @@ def profile(request):
     user = request.user
     return render(request, 'employee.html', {'user': user})
 
+
 @login_required
 def profile_update(request):
     user = request.user
@@ -67,6 +68,7 @@ def profile_update(request):
 # 用户信息维护
 
 
+@method_decorator(login_required, name='dispatch')
 class UserView(View):
 
     def get(self, request):
