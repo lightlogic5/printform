@@ -59,14 +59,28 @@
                     <div class="am-form-group">
                         <label for="doc-select-1" class="am-u-sm-2 am-form-label">单位</label>
                         <div class="am-u-sm-10">
-                            <select id="doc-select-1" name="units">
-                                 {% for choices in request.user.user_employee.units %}
-                                    <option>{{ choices.get_units_display }}</option>
-                                        {% endfor %}
+                            <select id="doc-select-1">
+                                <option value="option1">选项一...</option>
+                                <option value="option2">选项二.....</option>
+                                <option value="option3">选项三........</option>
                             </select>
                         </div>
                         <span class="am-form-caret"></span>
                     </div>
+                    <div class="am-form-group">
+                        <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">头像</label>
+                        <div class="am-u-sm-10">
+                            <div class="am-form-group am-form-file">
+                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                    <i class="am-icon-cloud-upload"></i> 选择要上传的图片文件
+                                </button>
+                                <input id="doc-form-file" type="file" multiple>
+                            </div>
+                            <div id="file-list"></div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="am-form-group">
                     <div class="am-u-md-offset-2 am-u-md-10">

@@ -44,7 +44,9 @@ class LoginView(View):
 @login_required
 def profile(request):
     user = request.user
+    choices = Employee.objects.all()
     return render(request, 'employee.html', {'user': user})
+# ,'choices':choices
 
 
 @login_required

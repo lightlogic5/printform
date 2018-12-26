@@ -19,7 +19,7 @@ class UploadImageForm(forms.ModelForm):
     class Meta:
         model = Employee
         # fields = '__all__'
-        fields = ['name','moblie','email','birthday', 'gender']
+        fields = ['name','moblie','email','birthday', 'gender','units']
         # fields = ['name', 'moblie', 'email']
 
 # class UploadImageForm(forms.Form):
