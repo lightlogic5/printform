@@ -5,25 +5,6 @@
 
     <div class="am-g am-g-fixed am-margin-top">
         <div data-am-widget="list_news" class="am-list-news am-list-news-default">
-            <!--列表标题-->
-{#            <div class="am-list-news-hd am-cf">#}
-{#                <div class="am-u-sm-6">#}
-{#                    <h1>维修列表</h1>#}
-{#                </div>#}
-{##}
-{#                    <div class="am-u-sm-6">#}
-{#    <div class="am-input-group am-input-group-primary">#}
-{#        <input type="text" class="am-form-field" id="search_keywords">#}
-{#      <span class="am-input-group-btn">#}
-{#        <button class="am-btn am-btn-primary" type="button" id="jsSearchBtn"><span class="am-icon-search"></span></button>#}
-{#      </span>#}
-{##}
-{#    </div>#}
-{#  </div>#}
-{##}
-{#            </div>#}
-
-{#        列表展示#}
 
             <div class="am-list-news-bd">
 
@@ -42,8 +23,8 @@
                             </div>
 
                             <div class=" am-u-sm-8 am-list-main">
-                                <span class="am-badge am-radius am-text-lg">{{ prforms.repair_man }}</span>
-                                <span class="am-badge am-badge-secondary am-round am-text-lg">{{ prforms.unit }}</span>
+                                <span class="am-badge am-radius am-text-lg">{{ prforms.repair_man.user_employee.name }}</span>
+                                <span class="am-badge am-badge-secondary am-round am-text-lg">{{ prforms.repair_man.user_employee.get_units_display }}</span>
                                 <span>{{ prforms.pub_date }}送修</span>
                                 <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed"/>
                                 <h3 class="am-list-item-hd">{{ prforms.content }}</h3>
@@ -61,25 +42,25 @@
 
         </div>
 
-<ul class="am-pagination am-pagination-centered">
-    {% if all_forms.has_previous %}
-        <li><a href="?{{ all_forms.previous_page_number.querystring }}" class="prev">&laquo;</a></li>
-    {% endif %}
-    {% for page in all_forms.pages %}
-        {% if page %}
-            {% ifequal page all_forms.number %}
-                <li class="am-active"><a>{{ page }}</a></li>
-            {% else %}
-                <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
-            {% endifequal %}
-        {% else %}
-            <li><span>...</span></li>
-        {% endif %}
-    {% endfor %}
-    {% if all_forms.has_next %}
-        <li><a href="?{{ all_forms.next_page_number.querystring }}" class="next">&raquo;</a></li>
-    {% endif %}
-</ul>
+        <ul class="am-pagination am-pagination-centered">
+            {% if all_forms.has_previous %}
+                <li><a href="?{{ all_forms.previous_page_number.querystring }}" class="prev">&laquo;</a></li>
+            {% endif %}
+            {% for page in all_forms.pages %}
+                {% if page %}
+                    {% ifequal page all_forms.number %}
+                        <li class="am-active"><a>{{ page }}</a></li>
+                    {% else %}
+                        <li><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                    {% endifequal %}
+                {% else %}
+                    <li><span>...</span></li>
+                {% endif %}
+            {% endfor %}
+            {% if all_forms.has_next %}
+                <li><a href="?{{ all_forms.next_page_number.querystring }}" class="next">&raquo;</a></li>
+            {% endif %}
+        </ul>
 
 
     </div>

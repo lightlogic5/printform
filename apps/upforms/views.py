@@ -7,9 +7,12 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+
+from .models import PrintForm
 from .forms import MyPrintForm
 
-
+# 提交故障页面
 @method_decorator(login_required, name='dispatch')
 class UpFormView(View):
     def get(self, request):
@@ -30,3 +33,25 @@ class UpFormView(View):
             return HttpResponse('{"status":"success"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"添加出错"}', content_type='application/json')
+
+
+# 所有在维修的打印机页面
+class FormListView(View):
+    def get(self, request):
+        all_forms = PrintForm.objects.all().order_by("-id")
+        # 搜索框
+        search_keywords = request.GET.get('keywords', "")
+        if search_keywords:
+            all_forms = all_forms.filter(repair_man__user_employee__name__icontains=search_keywords)
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+        p = Paginator(all_forms, 10,  request=request)
+
+        all_forms1 = p.page(page)
+        # print(all_forms)
+
+        return render(request, 'showforms.html', {
+            "all_forms": all_forms1
+        })

@@ -25,6 +25,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name= 'index'),
     path('xadmin/', xadmin.site.urls),
     path('userforms/', include(('users.urls','users'), namespace="users")),
+    # 表单页面
     path('prforms/', include(('upforms.urls','upforms'), namespace="pr")),
     path('login/', LoginView.as_view(), name= 'login'),
 ]

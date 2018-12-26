@@ -5,10 +5,10 @@ function search_click(){
     var keywords = $('#search_keywords').val(),
         request_url = '';
     if(keywords == ""){
-        request_url = "/polls/list/"
+        request_url = "/prforms/list/"
     }
     else {
-        request_url = "/polls/list?keywords="+keywords
+        request_url = "/prforms/list/?keywords="+keywords
     }
     window.location.href = request_url
 }
