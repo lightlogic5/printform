@@ -75,6 +75,7 @@ class UserView(View):
 
     def get(self, request):
         user = request.user
+        # units = request.user.user_employee
         return render(request, 'employee.html', {'user': user})
 
     def post(self, request):

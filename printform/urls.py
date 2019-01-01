@@ -28,4 +28,5 @@ urlpatterns = [
     # 表单页面
     path('prforms/', include(('upforms.urls','upforms'), namespace="pr")),
     path('login/', LoginView.as_view(), name= 'login'),
+    path('demo/', include(('demo.urls','demo'), namespace="de")),
 ]
