@@ -32,6 +32,10 @@ class Employee(models.Model):
     def __str__(self):
         return self.user.__str__()
 
+    @classmethod
+    def get_units(cls):
+        return cls.UNITS_CHOICES
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

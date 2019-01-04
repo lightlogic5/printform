@@ -27,7 +27,7 @@
                 <div class="am-u-sm-10">
                     <select id="prselect" name="prints">
                         {% for pr in user.user_printer.all %}
-                            <option value="{{ pr }}">{{ pr.get_type_display }}</option>
+                            <option value="{{ pr.id }}">{{ pr.get_type_display }}</option>
                         {% endfor %}
 
                     </select>

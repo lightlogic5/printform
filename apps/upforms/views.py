@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import PrintForm
+from printers.models import Prints
 from .forms import MyPrintForm
 
 # 提交故障页面
@@ -23,8 +24,8 @@ class UpFormView(View):
         user = request.user
         print_form = MyPrintForm(request.POST)
         if print_form.is_valid():
-            # prints = request.prints
             prints = request.POST.get('prints', "")
+            prints = Prints.objects.get(pk=prints)
             print_form1 = print_form.save(commit=False)
             print_form1.pub_date = timezone.now()
             print_form1.repair_man = user

@@ -60,8 +60,8 @@
                         <label for="doc-select-1" class="am-u-sm-2 am-form-label">单位</label>
                         <div class="am-u-sm-10">
                             <select id="doc-select-1" name="units">
-                                 {% for choices in request.user.user_employee.units.queryset %}
-                                    <option value="choices.units">{{ choices.get_units_display }}</option>
+                                  {% for k,v in choices.items %}
+                                    <option value="{{ k }}" {% if request.user.user_employee.units == k %}selected = "selected"{% endif %}>{{ v }}</option>
                                         {% endfor %}
                             </select>
                         </div>

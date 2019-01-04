@@ -21,5 +21,6 @@ class Prints(models.Model):
         verbose_name = '打印机信息'
         verbose_name_plural = verbose_name
 
+
     def __str__(self):
-        return '{0}({1})'.format(self.SN, self.type)
+        return '{0}({1}){2}'.format(self.SN, self.type,self.get_type_display())

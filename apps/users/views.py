@@ -1,3 +1,5 @@
+import collections
+
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.contrib.auth import authenticate, login, logout
@@ -74,9 +76,11 @@ def profile_update(request):
 class UserView(View):
 
     def get(self, request):
-        user = request.user
-        # units = request.user.user_employee
-        return render(request, 'employee.html', {'user': user})
+        user = request.user.user_employee
+        choices = collections.OrderedDict()
+        choices.setdefault(user.units, user.get_units_display())
+        choices.update({i[0]: i[1] for i in Employee.get_units() if i[0] not in choices.keys()})
+        return render(request, 'employee.html', {'choices': choices})
 
     def post(self, request):
         user = request.user
@@ -88,6 +92,7 @@ class UserView(View):
             user_profile.moblie = user_form.cleaned_data['moblie']
             user_profile.email = user_form.cleaned_data['email']
             user_profile.gender = user_form.cleaned_data['gender']
+            user_profile.units = user_form.cleaned_data['units']
             user_profile.save()
             return HttpResponseRedirect(reverse('users:employee'))
         else:
