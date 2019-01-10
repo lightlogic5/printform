@@ -77,7 +77,62 @@
 
             </fieldset>
         </form>
+
+{#    打印机资产列表#}
+     <table class="am-table am-table-striped am-table-hover">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <h3 class="text-success">您的打印机资产</h3>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for print in printers %}
+                                <tr>
+
+                                <td class="todo">{{ print.get_type_display }}</td>
+                                <td class="todo">{{ print.SN }}</td>
+                                <td>
+                                    <div class="">
+                                        <a href="{% url 'print:update' print.id %}" title="redo"><i class="am-icon-edit"></i>编辑</a>
+                                        <a href="" title="edit"><i class="am-icon-trash"></i>删除</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                        <button
+  type="button"
+  class="am-btn am-btn-success"
+  id="doc-prompt-toggle">
+  添加记录
+</button>
     </div>
+
+{#    打印机信息录入#}
+
+
+
+<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">Amaze UI</div>
+    <div class="am-modal-bd">
+      来来来，吐槽点啥吧
+      <input type="text" class="am-modal-prompt-input">
+
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+    </div>
+  </div>
+</div>
+
+
 {% endblock %}
 {% block custom_js %}
     <script>
@@ -89,6 +144,18 @@
                 });
                 $('#file-list').html(fileNames);
             });
+
+            $('#doc-prompt-toggle').on('click', function() {
+    $('#my-prompt').modal({
+      relatedTarget: this,
+      onConfirm: function(e) {
+        alert('你输入的是：' + e.data || '')
+      },
+      onCancel: function(e) {
+        alert('不想说!');
+      }
+    });
+  });
 
 
         });

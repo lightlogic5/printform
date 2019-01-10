@@ -8,4 +8,6 @@ urlpatterns = [
     # 登出页
     path('logout/', views.LogoutView.as_view(), name="logout"),
     # 提交表单
+    # 员工注册
+    path('register/',views.register, name='register')
 ]

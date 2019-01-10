@@ -1,7 +1,49 @@
 from django import forms
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from .models import Employee
+
+# 用户注册
+class RegistrationForm(forms.Form):
+
+    username = forms.CharField(label='Username', max_length=50)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+
+    # Use clean methods to define custom validation rules
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if len(username) > 50:
+            raise forms.ValidationError("用户名过长")
+        else:
+            filter_result = User.objects.filter(username__exact=username)
+            if len(filter_result) > 0:
+                raise forms.ValidationError("Your username already exists.")
+
+        return username
+
+
+    def clean_password1(self):
+        password1 = self.cleaned_data.get('password1')
+
+        if len(password1) < 6:
+            raise forms.ValidationError("Your password is too short.")
+        elif len(password1) > 20:
+            raise forms.ValidationError("Your password is too long.")
+
+        return password1
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Password mismatch. Please enter again.")
+
+        return password2
 
 # 用户登录
 class LoginForm(forms.Form):

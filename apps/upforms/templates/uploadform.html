@@ -51,7 +51,8 @@
 
     $(function () {
       bindSelect();
-      $('#info').text($('#prselect').val());
+      {#$('#info').text($('#prselect').val());#}
+      $('#info').text('<您还未选择打印机型号>');
     });
     bindSelect = function () {
       var $prSelect = $('#prselect');

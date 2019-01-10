@@ -27,6 +27,7 @@ urlpatterns = [
     path('userforms/', include(('users.urls','users'), namespace="users")),
     # 表单页面
     path('prforms/', include(('upforms.urls','upforms'), namespace="pr")),
+    path('printer/', include(('printers.urls','printers'), namespace="print")),
     path('login/', LoginView.as_view(), name= 'login'),
     path('demo/', include(('demo.urls','demo'), namespace="de")),
 ]

@@ -7,14 +7,34 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.models import User
 
 
 from .forms import LoginForm
 # Create your views here.
 from .models import Employee
-from .forms import UserForm, UploadImageForm
+from .forms import UserForm, UploadImageForm, RegistrationForm
 
 
+
+# 用户注册
+def register(request):
+    if request.method == 'POST':
+
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password2']
+            # 使用内置User自带create_user方法创建用户，不需要使用save()
+            user = User.objects.create_user(username=username, password=password)
+            # print(user)
+            # 如果直接使用objects.create()方法后不需要使用save()
+            # user_profile = Employee(user=user)
+            # user_profile.save()
+            return HttpResponseRedirect(reverse('login'))
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration.html', {'form': form})
 
 class LogoutView(View):
     """
@@ -47,8 +67,8 @@ class LoginView(View):
 def profile(request):
     user = request.user
     choices = Employee.objects.all()
-    return render(request, 'employee.html', {'user': user})
-# ,'choices':choices
+    printers = user.user_printer.objects.get(user=user)
+    return render(request, 'employee.html', {'user': user,'printers':printers})
 
 
 @login_required
@@ -69,18 +89,19 @@ def profile_update(request):
 
     return render(request, 'employee.html', {'form': form, 'user': user})
 
+
 # 用户信息维护
-
-
 @method_decorator(login_required, name='dispatch')
 class UserView(View):
 
     def get(self, request):
-        user = request.user.user_employee
+        aa = request.user
+        user = aa.user_employee
+        printers = aa.user_printer.filter(user=aa)
         choices = collections.OrderedDict()
         choices.setdefault(user.units, user.get_units_display())
         choices.update({i[0]: i[1] for i in Employee.get_units() if i[0] not in choices.keys()})
-        return render(request, 'employee.html', {'choices': choices})
+        return render(request, 'employee.html', {'choices': choices,'printers':printers})
 
     def post(self, request):
         user = request.user
