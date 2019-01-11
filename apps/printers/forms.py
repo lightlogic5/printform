@@ -5,7 +5,7 @@ from .models import Prints
 class PrintForm(ModelForm):
     class Meta:
         model = Prints
-        exclude = ('user', 'service_num', 'comment')
+        exclude = ('user', 'service_num', 'comment','state')
 
         widgets = {
         }

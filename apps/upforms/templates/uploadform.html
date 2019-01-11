@@ -26,7 +26,7 @@
                 <label for="doc-select-1" class="am-u-sm-2 am-form-label">报修打印机</label>
                 <div class="am-u-sm-10">
                     <select id="prselect" name="prints">
-                        {% for pr in user.user_printer.all %}
+                        {% for pr in prints %}
                             <option value="{{ pr.id }}">{{ pr.get_type_display }}</option>
                         {% endfor %}
 

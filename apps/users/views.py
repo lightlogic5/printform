@@ -97,7 +97,7 @@ class UserView(View):
     def get(self, request):
         aa = request.user
         user = aa.user_employee
-        printers = aa.user_printer.filter(user=aa)
+        printers = aa.user_printer.filter(user=aa,state=1)
         choices = collections.OrderedDict()
         choices.setdefault(user.units, user.get_units_display())
         choices.update({i[0]: i[1] for i in Employee.get_units() if i[0] not in choices.keys()})

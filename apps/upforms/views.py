@@ -18,7 +18,8 @@ from .forms import MyPrintForm
 class UpFormView(View):
     def get(self, request):
         user = request.user
-        return render(request, "uploadform.html", {'user': user})
+        prints = user.user_printer.filter(state=1)
+        return render(request, "uploadform.html", {'user': user, 'prints':prints})
 
     def post(self, request):
         user = request.user
@@ -31,6 +32,8 @@ class UpFormView(View):
             print_form1.repair_man = user
             print_form1.prints = prints
             print_form1.save()
+            prints.service_num += 1
+            prints.save()
             return HttpResponse('{"status":"success"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"添加出错"}', content_type='application/json')
