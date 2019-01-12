@@ -6,7 +6,7 @@ from .models import Prints
 
 class PrintForm(ModelForm):
     pub_date = Ffields.CharField(
-        widget=wid.DateTimeInput(attrs={"id":"my-datepicker"}),
+        widget=wid.DateInput(attrs={"id":"my-datepicker"}),
         label='接收日期',
     )
     # pub_date = pub_date1 + '00:00'
