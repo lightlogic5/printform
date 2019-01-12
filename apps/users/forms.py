@@ -7,9 +7,9 @@ from .models import Employee
 # 用户注册
 class RegistrationForm(forms.Form):
 
-    username = forms.CharField(label='Username', max_length=50)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password Confirmation', widget=forms.PasswordInput)
+    username = forms.CharField(label='员工编号', max_length=50)
+    password1 = forms.CharField(label='密码', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='确认密码', widget=forms.PasswordInput)
 
     # Use clean methods to define custom validation rules
 

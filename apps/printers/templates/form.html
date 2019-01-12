@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}打印机信息{% endblock %}
+{% block custom_css %}
 
+    <link rel="stylesheet" href="{% static 'css/amazeui.datetimepicker-se.min.css' %}">
+{% endblock %}
+
+{% block custom_js %}
+    <link rel="stylesheet" href="{% static 'js/moment.js' %}" />
+<link rel="stylesheet" href="{% static 'js/amazeui.datetimepicker-se.min.js' %}" />
+     <script>
+        $('#my-datepicker').datepicker({format: 'yyyy-mm-dd'});
+
+    </script>
+{% endblock %}
 {% block content %}
-
+    <div class="am-g am-g-fixed">
+{% load mystyle %}
 <form action="" method="post" enctype="multipart/form-data" >
+<legend>打印机信息管理</legend>
   {% csrf_token %}
 
   {% for hidden_field in form.hidden_fields %}
@@ -18,16 +34,17 @@
 {% endif %}
 
 {% for field in form.visible_fields %}
-  <div class="form-group">
-    {{ field.label_tag }}
-    {{ field }}
-    {% if field.help_text %}
-      <small class="form-text text-muted">{{ field.help_text }}</small>
-    {% endif %}
-  </div>
+  <div class="am-u-sm-12">
+                    {{ field.errors }}
+                    {{ field|label_with_classes:"am-u-sm-2 am-form-label" }}<div class="am-u-sm-10"> {{ field }}</div>
+                    {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
 {% endfor %}
 
 
  <button class="btn btn-info form-control " type="submit" value="submit">提交</button>
 </form>
+    </div>
 {% endblock %}

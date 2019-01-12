@@ -16,7 +16,10 @@ class Employee(models.Model):
     )
     UNITS_CHOICES = (
         ('ylh','第一联合运行部'),
-        ('elh','第二联合运行部')
+        ('elh','第二联合运行部'),
+        ('slh', '第三联合运行部'),
+        ('silh', '第四联合运行部'),
+        ('wlh', '第五联合运行部'),
     )
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='male', verbose_name='性别')
     units = models.CharField(max_length=5, verbose_name='单位', choices=UNITS_CHOICES, null=True, blank=True)

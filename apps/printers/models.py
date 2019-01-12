@@ -17,8 +17,8 @@ class Prints(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='user_printer', null=True, blank=True)
-    SN = models.IntegerField(default=0, verbose_name="打印机编码")
-    pub_date = models.DateTimeField(verbose_name="发放日期", null=True, blank=True)
+    SN = models.CharField(max_length=50,default=0, verbose_name="打印机编码")
+    pub_date = models.DateField(verbose_name="发放日期", null=True, blank=True)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES, default=1, verbose_name="打印机型号")
     service_num = models.IntegerField(default=0, verbose_name="维修次数")
     comment = models.TextField(verbose_name="管理员备注", null=True, blank=True)

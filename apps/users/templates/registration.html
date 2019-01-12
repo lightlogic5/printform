@@ -1,18 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}用户注册{% endblock %}
 {% block content %}
-    <div class="form-wrapper">
+    <div class="am-g am-g-fixed">
+    {% load mystyle %}
         <form method="post" action="" enctype="multipart/form-data">
+        <legend>用户注册</legend>
             {% csrf_token %}
             {% for field in form %}
-                <div class="fieldWrapper">
+
+                <div class="am-u-sm-12">
                     {{ field.errors }}
-                    {{ field.label_tag }} {{ field }}
+                    {{ field|label_with_classes:"am-u-sm-2 am-form-label" }}<div class="am-u-sm-10"> {{ field }}</div>
                     {% if field.help_text %}
                         <p class="help">{{ field.help_text|safe }}</p>
                     {% endif %}
                 </div>
             {% endfor %}
             <div class="button-wrapper submit">
-                <input type="submit" value="Submit" />
+                <input type="submit" value="确认提交" />
             </div>
         </form>
     </div>
