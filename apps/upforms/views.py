@@ -34,7 +34,7 @@ class UpFormView(View):
             print_form1.save()
             prints.service_num += 1
             prints.save()
-            return HttpResponse('{"status":"success"}', content_type='application/json')
+            return HttpResponse('{"status":"您的故障已提交成功，请在主页持续关注"}', content_type='application/json')
         else:
             return HttpResponse('{"status":"fail", "msg":"添加出错"}', content_type='application/json')
 
