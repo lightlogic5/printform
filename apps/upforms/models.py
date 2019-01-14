@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -22,6 +23,15 @@ class PrintForm(models.Model):
     comment = models.TextField(verbose_name="管理员备注", null=True, blank=True)
     prints = models.ForeignKey(Prints,on_delete=models.DO_NOTHING,related_name='form_pr', null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if self.state=='3':
+            self.over_date=datetime.datetime.now()
+        elif self.state=='2':
+            self.receive_date=datetime.datetime.now()
+        elif self.state=='4':
+            self.back_date=datetime.datetime.now()
+        print(self.state)
+        super(PrintForm, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = '表单信息'
